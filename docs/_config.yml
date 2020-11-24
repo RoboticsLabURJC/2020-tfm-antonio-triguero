@@ -14,13 +14,13 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: jekyll-tutorial
-email: jekyll-tutorial@domain.com
+title: Antonio Triguero Noriega
+email: a.triguero.2016@alumnos.urjc.es
 description: "Super awesome description"
 baseurl : 
-url: https://jekyll-tutorial.github.io
-twitter_username: username
-github_username: jekyll-tutorial
+url: https://roboticslaburjc.github.io/2020-tfm-antonio-triguero
+twitter_username: 
+github_username: AntonioTriguero
 minimal_mistakes_skin: dark
 search: true
 
