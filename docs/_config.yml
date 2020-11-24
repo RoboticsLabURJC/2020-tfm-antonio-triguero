@@ -58,28 +58,25 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name   : "jekyll-tutorial"
-  avatar : "https://avatars1.githubusercontent.com/u/50220475?s=460&v=4"
-  bio    : "Whoah, someone is reading this?"
+  name   : "Antonio Triguero Noriega"
+  avatar : "https://avatars0.githubusercontent.com/u/43645792?s=460&u=3d96235b8f31ad2a668da4ea411eb3727c647705&v=4"
+  bio    : "Artificial Vision student at URJC"
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      url: "https://alexanderjdupree.github.io"
+      url: "https://antoniotriguero.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/alexanderjdupree"
+      url: "https://github.com/AntonioTriguero"
 
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/antoniotrigueronoriega/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+      url: "https://github.com/AntonioTriguero"
 
 defaults:
   # _posts
