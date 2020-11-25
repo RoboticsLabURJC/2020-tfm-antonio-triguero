@@ -14,9 +14,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Antonio Triguero Noriega
+title: Robotics Lab URJC
 email: a.triguero.2016@alumnos.urjc.es
-description: "Super awesome description"
+description: "Site for Master Thesis"
 baseurl : 
 url: https://roboticslaburjc.github.io/2020-tfm-antonio-triguero
 twitter_username: 
