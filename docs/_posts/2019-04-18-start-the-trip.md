@@ -1,5 +1,5 @@
 ---
-title: "Start the trip!"
+title: "Week 0. Start the trip!"
 date: 2020-11-24T17:49:00-04:00
 categories:
   - logbook
