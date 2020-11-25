@@ -23,6 +23,7 @@ twitter_username:
 github_username: AntonioTriguero
 minimal_mistakes_skin: dark
 search: true
+logo: ./logo.png
 
 # Build settings
 markdown: kramdown
@@ -68,6 +69,9 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/AntonioTriguero"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/antoniotrigueronoriega/"
 
 footer:
   links:
