@@ -1,3 +1,3 @@
-[submodule "f1-pid"]
-	path = f1-pid
-	url = https://github.com/AntonioTriguero/f1-pid-controller.git
+[submodule "robotic-vision"]
+	path = robotic-vision
+	url = https://github.com/AntonioTriguero/robotic-vision.git
