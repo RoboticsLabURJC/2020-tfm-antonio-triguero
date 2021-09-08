@@ -1,1 +1,7 @@
+*__pycache__
+*env
+*venv
 .vscode
+.python-version
+*gym_gazebo.egg-info
+*scratch.py

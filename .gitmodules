@@ -1,3 +1,3 @@
-[submodule "robotic-vision"]
-	path = robotic-vision
-	url = https://github.com/AntonioTriguero/robotic-vision.git
+[submodule "JdeRobot/CustomRobots"]
+	path = gym_gazebo/gym_gazebo/launchfiles
+	url = https://github.com/JdeRobot/CustomRobots.git
