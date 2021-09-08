@@ -13,4 +13,4 @@ agent training based on reinforcement learning in the same way as they would in 
 they appear in the README file of the GitHub project.
 At first this environment only allowed to initialize and run a single environment but currently it allows to have different environments running in the same moment.
 
-![Class Diagram](/assets/images/ClassDiagram.png)
+![Class Diagram](../../assets/images/ClassDiagram.png)
