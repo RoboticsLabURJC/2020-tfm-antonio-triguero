@@ -10,8 +10,10 @@
 
 ```
 $ sudo chmod +x setup.sh
-$ sudo ./setup.sh
+$ ./setup.sh
 ```
+
+If it doesn't work, try with ```sudo``` for executing ```setup.sh``` file.
 
 2. Create Python virtual environment and activate it
 3. Move to gym_gazebo directory and install gym gazebo with next line:
@@ -21,8 +23,6 @@ $ sudo pip install -e .
 ```
 
 <h2 id="available-envs">Available environments</h2>
-
-1. MontmeloLine-v0
 
 | env-id              | preview       |
 | ------------------- |:-------------:|
