@@ -1,4 +1,4 @@
-from gym_gazebo.core.subscribers import ImageSubscriber
+from gym_gazebo.core.topics.subscribers import ImageSubscriber
 
 class Camera:
 	def __init__(self, name: str, scale: float):

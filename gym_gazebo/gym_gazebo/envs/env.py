@@ -1,8 +1,8 @@
 import os
 from gym import Env
 from gym.error import ClosedEnvironmentError, InvalidAction
-from gym_gazebo.envs.core import GazeboROSLauncher, LAUNCHFILES_PATH
-from gym_gazebo.core.publishers import ServicePublisher
+from gym_gazebo.core.launcher import GazeboROSLauncher, LAUNCHFILES_PATH
+from gym_gazebo.core.topics.publishers import ServicePublisher
 
 class Env(Env):
     

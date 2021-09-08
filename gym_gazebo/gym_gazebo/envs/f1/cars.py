@@ -1,5 +1,5 @@
-from gym_gazebo.f1.cameras import Camera
-from gym_gazebo.core.publishers import PositionPublisher, VelocityPublisher
+from gym_gazebo.envs.f1.cameras import Camera
+from gym_gazebo.core.topics.publishers import PositionPublisher, VelocityPublisher
 
 
 class Car:

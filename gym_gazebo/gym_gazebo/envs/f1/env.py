@@ -1,4 +1,4 @@
-from gym_gazebo.f1.cars import F1Renault
+from gym_gazebo.envs.f1.cars import F1Renault
 import random
 import numpy as np
 import cv2 as cv
