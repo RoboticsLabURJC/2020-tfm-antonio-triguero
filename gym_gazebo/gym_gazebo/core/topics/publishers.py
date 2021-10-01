@@ -1,4 +1,4 @@
-from gym_gazebo.core.launchers import MasterPortLock
+from gym_gazebo.core.launcher import MasterPortLock
 import rospy
 from gazebo_msgs.msg import ModelState
 from gazebo_msgs.srv import SetModelState

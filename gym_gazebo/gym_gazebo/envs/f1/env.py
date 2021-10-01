@@ -72,8 +72,8 @@ class MontmeloLineEnv(Env):
 		self.car = F1Renault(master_port=self._id)
 
 		# because action space normalization
-		self.action_high = np.array([12, 0.6])
-		self.action_low = np.array([0, -0.6])
+		self.action_high = np.array([12, 1])
+		self.action_low = np.array([0, -1])
 
 		self.action_space = Box(low=-1, high=1, shape=(2,), dtype="float32") # normalized
 		self.observation_space=Box(low=0, high=255, shape=self.car.camera.shape, dtype=np.uint8)
@@ -85,24 +85,6 @@ class MontmeloLineEnv(Env):
 
 	def reset(self):
 		super().reset()
-
-		positions = [
-			#None,
-			(-71, -31.5, 0.004, 0, 0, -1, 0),
-			#(-71, -31.5, 0.004, 0, 0, -1, -90),
-			#(-80, -22, 0.004, 0, 0, -1, 1),
-			#(-80, -22, 0.004, 0, 0, -1, -1),
-			#(-40, -18.4, 0.004, 0, 0, -1, -45),
-			#(-40, -18.4, 0.004, 0, 0, -1, 0),
-			#(-40, 12, 0.004, 0, 0, -1, 0.3),
-			#(-45, 31.5, 0.004, 0, 0, 0, 0),
-			#(-75, 31.5, 0.004, 0, 0, 1, 0),
-			#(-75, 8.7, 0.004, 0, 0, 1, 0),
-		]
-		position = random.choice(positions)
-		if position is not None:
-			self.car.position(*position)
-
 		return self.car.image() // 255
 		
 	def render(self, mode='human'):
@@ -162,4 +144,4 @@ class MontmeloLineEnv(Env):
 		velocity_x = self.last_action[0] / self.action_high[0]
 		reward = velocity_x * (np.cos(radians) - np.sin(radians))
 
-		return image, reward, done, {}
+		return image, reward, done, result
