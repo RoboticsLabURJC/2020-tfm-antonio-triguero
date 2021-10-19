@@ -13,10 +13,7 @@ class Publisher:
 
     def publish(self, *args):
         self.master_port_lock.acquire(self.master_port)
-
-        rospy.init_node('publisher', anonymous=True, log_level=rospy.FATAL)
         self._send_data(*args)
-
         self.master_port_lock.release()
 
     def _send_data(self):
@@ -39,6 +36,9 @@ class VelocityPublisher(Publisher):
         self._publisher = rospy.Publisher(model_name, Twist, queue_size=1)
 
     def _send_data(self, x: float, z: float):
+        while self._publisher.get_num_connections() == 0:
+            pass
+        
         message = Twist()
         message.linear.x = x
         message.angular.z = z

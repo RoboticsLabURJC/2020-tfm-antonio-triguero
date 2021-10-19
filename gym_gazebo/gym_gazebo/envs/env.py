@@ -1,6 +1,6 @@
 import os
 from gym import Env
-from gym.error import ClosedEnvironmentError, InvalidAction
+from gym.error import ClosedEnvironmentError
 from gym_gazebo.core.launcher import GazeboROSLauncher, LAUNCHFILES_PATH
 from gym_gazebo.core.topics.publishers import ServicePublisher
 
@@ -41,5 +41,3 @@ class Env(Env):
         
     def step(self, action):
         self._check_closed()
-        if not self.action_space.contains(action):
-            raise InvalidAction()

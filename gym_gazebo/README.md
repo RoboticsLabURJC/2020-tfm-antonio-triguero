@@ -19,7 +19,7 @@ If it doesn't work, try with ```sudo``` for executing ```setup.sh``` file.
 3. Move to gym_gazebo directory and install gym gazebo with next line:
 
 ```
-$ sudo pip install -e .
+$ pip install -e .
 ```
 
 <h2 id="available-envs">Available environments</h2>

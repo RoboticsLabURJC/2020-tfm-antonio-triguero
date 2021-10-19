@@ -3,6 +3,7 @@ import signal
 import sys
 import roslaunch
 import socket
+import rospy
 from contextlib import closing
 from threading import Lock
 
@@ -49,8 +50,8 @@ class GazeboROSLauncher(Singleton):
 		os.environ['ROSCONSOLE_CONFIG_FILE'] = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'rosconsole.conf')
 		os.environ['IGN_IP'] = '127.0.0.1'
 
-		signal.signal(signal.SIGTERM, lambda a, b: self.stop_all())# or exit())
-		signal.signal(signal.SIGINT, lambda a, b: self.stop_all())# or exit())
+		signal.signal(signal.SIGTERM, lambda a, b: self.stop_all() or exit())
+		signal.signal(signal.SIGINT, lambda a, b: self.stop_all() or exit())
 
 	def _find_free_port(self):
 		with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
@@ -68,6 +69,7 @@ class GazeboROSLauncher(Singleton):
 		print(f'Starting roslaunch process at port {port}...', end='')
 		with HiddenPrints():
 			launch.start()
+			rospy.init_node('gym_gazebo', anonymous=True, log_level=rospy.FATAL)
 		self._master_port_lock.release()
 		print(' DONE!')
 		return launch

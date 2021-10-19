@@ -19,5 +19,5 @@ class Car:
 
 class F1Renault(Car):
 	def __init__(self, master_port: int):
-		camera = Camera('/F1ROS/cameraL/image_raw', 0.25)
+		camera = Camera('/F1ROS/cameraL/image_raw', 0.25, master_port)
 		super().__init__('f1_renault', camera, master_port)
