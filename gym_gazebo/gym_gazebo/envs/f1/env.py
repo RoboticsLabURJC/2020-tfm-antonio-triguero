@@ -25,7 +25,7 @@ class F1Env(Env):
 		super().step(action)
 		self.car.velocity(*action)
 		image = self.car.image()
-		return image, 0, False, {}
+		return image, None, None, None
 
 class MontmeloLineEnv(F1Env):
 	def __init__(self, args={}):
