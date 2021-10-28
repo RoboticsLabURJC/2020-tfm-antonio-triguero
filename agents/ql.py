@@ -8,7 +8,8 @@ from pandas import DataFrame
 
 class QL(Agent):
     def __init__(self, env: Env, epsilon: float, episilon_discount_factor: float,
-                min_epsilon: float, learning_rate: float = 0.95, discount_factor: float = 0.95, saving_path: str = 'q.csv'):
+                min_epsilon: float, learning_rate: float = 0.95, discount_factor: float = 0.95, 
+                saving_path: str = 'q.csv', read_model: bool = False):
         super().__init__(env)
         self.epsilon = epsilon
         self.episilon_discount_factor = episilon_discount_factor
@@ -17,6 +18,8 @@ class QL(Agent):
         self.discount_factor = discount_factor
         self.saving_path = saving_path
         self.q = np.zeros((env.observation_space.n, env.action_space.n))
+        if read_model:
+            self.q = np.genfromtxt(self.saving_path, delimiter=',')
 
     def predict(self, observation: int):
         if self.epsilon > self.min_epsilon:

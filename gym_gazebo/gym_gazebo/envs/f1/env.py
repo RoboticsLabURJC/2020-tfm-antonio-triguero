@@ -1,5 +1,6 @@
 from gym_gazebo.envs.f1.cars import F1Renault
 import random
+from concurrent.futures import ThreadPoolExecutor
 import numpy as np
 import cv2 as cv
 from gym_gazebo.envs.env import Env
@@ -10,16 +11,20 @@ class F1Env(Env):
 	def __init__(self, launchfile: str, args={}):
 		super().__init__(launchfile=launchfile, args=args)
 		self.car = F1Renault(master_port=self._id)
+		self.render_pool = ThreadPoolExecutor(max_workers=1)
 
 	def reset(self):
 		super().reset()
 		return self.car.image()
 		
 	def render(self, mode='human'):
-		if mode == 'human':
-			image = self.car.image()
-			cv.imshow("Camera View", image)
-			cv.waitKey(10)
+		def run():
+			if mode == 'human':
+				image = self.car.image()
+				cv.imshow("Camera View", image)
+				cv.waitKey(10)
+		
+		self.render_pool.submit(run)
 
 	def step(self, action: np.array):
 		super().step(action)
