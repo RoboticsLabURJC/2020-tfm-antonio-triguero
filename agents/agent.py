@@ -3,9 +3,11 @@ import tempfile
 from csv import writer
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any, List
+from gym_gazebo.envs import Env
 
 from pandas import DataFrame
 from tqdm import tqdm
+import time
 
 class History:
     def __init__(self, path: str, filename: str, overwrite: bool = True):
@@ -17,7 +19,7 @@ class History:
 
     def __write(self, atts: List[Any], mode: str = "a+"):
         def task():
-            with open(self.full_path, mode, newline='') as write_obj:
+            with open(self.__full_path, mode, newline='') as write_obj:
                     csv_writer = writer(write_obj)
                     csv_writer.writerow(atts)
 
@@ -47,24 +49,59 @@ class Episode:
         self.__executor.shutdown(wait=True)
         return self.__data
 
+class Timer:
+    def __init__(self):
+        self._start_time = None
+
+    def start(self):
+        self._start_time = time.perf_counter()
+
+    def stop(self):
+        if self._start_time is None:
+            return 0
+
+        elapsed_time = time.perf_counter() - self._start_time
+        self._start_time = None
+        return elapsed_time
+
+    def sleep(self, seconds: float):
+        if seconds > 0:
+            time.sleep(seconds)
+
 class Agent:
-    def __init__(self, env):
+    def __init__(self, env: Env):
         self.env = env
 
-    def train(self, total_steps: int, steps_per_update: int, steps_per_saving: int, render: bool = False):
+    def __run(self, total_steps: int = int(1e6), steps_per_update: int = None, steps_per_saving: int = 100, 
+            render: bool = False, iteration_velocity: int = None, stop_and_go_seconds: int = None):
         history = History(tempfile.mkdtemp(), 'history.csv')
-
+        iteration_velocity_timer = Timer()
         pbar = tqdm(desc='Steps', total=total_steps)
+
+        episode_size = total_steps if steps_per_update is None else steps_per_update
         observation, done = self.env.reset(), False
-        for step in range(0, total_steps, steps_per_update):
+        for step in range(0, total_steps, episode_size):
             episode = Episode(steps_per_update)
             for _ in range(steps_per_update):
                 if done:
                     observation, done = self.env.reset(), False
 
+                elapsed_time = iteration_velocity_timer.stop()
+                if iteration_velocity is not None:
+                    iteration_velocity_timer.sleep(1 / iteration_velocity - elapsed_time)
+
                 action = self.predict(observation)
+
+                iteration_velocity_timer.start()
+
+                if stop_and_go_seconds is not None:
+                    self.env.unpause()
+                    time.sleep(stop_and_go_seconds)
+                    self.env.pause()
+
                 if render: 
                     self.env.render()
+
                 next_observation, reward, done, info = self.env.step(action)
                 
                 episode.append(observation, action, reward, next_observation, done, info)
@@ -76,9 +113,18 @@ class Agent:
                 if step % steps_per_saving == 0:
                     self.save()
 
-            self.update(episode.close())
+            if steps_per_update is not None:
+                self.update(episode.close())
 
         return history.close()
+
+    def train(self, total_steps: int = int(1e6), steps_per_update: int = 100, steps_per_saving: int = 100, render: bool = False, iteration_velocity: int = None,
+            stop_and_go_seconds: int = None):
+        return self.__run(total_steps=total_steps, steps_per_update=steps_per_update, steps_per_saving=steps_per_saving,
+                        render=render, iteration_velocity=iteration_velocity, stop_and_go_seconds=stop_and_go_seconds)
+
+    def inference(self, total_steps: int = int(1e6), render: bool = False):
+        return self.__run(total_steps=total_steps, render=render)
 
     def predict(self, observation):
         raise NotImplementedError

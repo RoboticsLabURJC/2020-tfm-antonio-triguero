@@ -88,7 +88,8 @@ class MontmeloLineMultivariate(MontmeloLineDiscrete):
         self.last_action = np.array([0, 0])
         if not done:
             velocity_plus = action[0]
-            stability_plus = 1 / np.abs(self.last_action[1] - action[1])
+            stability_plus = np.abs(self.last_action[1] - action[1])
+            stability_plus = 1 if stability_plus == 0 else 1 / stability_plus
             reward *= velocity_plus * stability_plus 
             self.last_action = action
 
