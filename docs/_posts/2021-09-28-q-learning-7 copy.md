@@ -1,0 +1,13 @@
+---
+title: "Week 6-7. Q learning - Playing with parameters"
+date: 2021-11-8T19:28:00-04:00
+categories:
+  - logbook
+tags:
+  - log
+  - update
+---
+
+Observing the large training time that the algorithm needs to learn to solve the problem when the iteration speed is limited (since the lower the speed, the fewer cases it observes per second and, therefore, the less is the training), an alternative that could be faster has been chosen.
+In this case it has been decided not to limit the iteration speed of the algorithm and to try different values for the number of bins and maximum and minimum values of the rotation and linear velocities. First, this approach was tested during inference while modifying the Q table on the same scale to see if this could improve the car times, but during this week it has been impossible to calibrate it or at least, no results have been observed. Then we proceeded to run a new training modifying only the maximum and minimum values of the speeds but the car is not able to stabilize properly and there are certain scenarios that is not able to solve. In the end we have reached an approach where we determine a number of bins for each odd speed, so that there is always the value of 0 turn and thus get the car centered on the straight lines, and leave the same number of bins for the observations, as these have been seen to be sufficient to solve the problem with previous parameterizations.
+Currently the algorithm is training with a number of bins of 7 for the linear velocity, 7 for the angular velocity and 10 for the observations. As maximum values of linear and angular velocity both have been set to 10 and as minimum values, the first one to 0 and the second one to -10.
