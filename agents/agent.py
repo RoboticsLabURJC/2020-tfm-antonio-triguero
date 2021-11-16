@@ -2,7 +2,7 @@ import os
 import tempfile
 from csv import writer
 from concurrent.futures import ThreadPoolExecutor
-from typing import Any, List
+from typing import Any, Dict, List
 from gym_gazebo.envs import Env
 
 from pandas import DataFrame
@@ -73,7 +73,8 @@ class Agent:
         self.env = env
 
     def __run(self, total_steps: int = int(1e6), steps_per_update: int = None, steps_per_saving: int = 100, 
-            render: bool = False, iteration_velocity: int = None, stop_and_go_seconds: int = None):
+            render: bool = False, iteration_velocity: int = None, stop_and_go_seconds: int = None, 
+            print_env_info: bool = False, print_agent_info: bool = False):
         history = History(tempfile.mkdtemp(), 'history.csv')
         iteration_velocity_timer = Timer()
         pbar = tqdm(desc='Steps', total=total_steps)
@@ -108,6 +109,10 @@ class Agent:
                 history.append(observation, action, reward, next_observation, done, info)
 
                 observation = next_observation
+                if print_env_info:
+                    pbar.set_postfix(info)
+                if print_agent_info:
+                    pbar.set_postfix(self.info())
                 pbar.update()
 
                 if step % steps_per_saving == 0:
@@ -118,13 +123,15 @@ class Agent:
 
         return history.close()
 
-    def train(self, total_steps: int = int(1e6), steps_per_update: int = 100, steps_per_saving: int = 100, render: bool = False, iteration_velocity: int = None,
-            stop_and_go_seconds: int = None):
+    def train(self, total_steps: int = int(1e6), steps_per_update: int = 100, steps_per_saving: int = 100, 
+              render: bool = False, iteration_velocity: int = None, stop_and_go_seconds: int = None,
+              print_env_info: bool = False, print_agent_info: bool = False):
         return self.__run(total_steps=total_steps, steps_per_update=steps_per_update, steps_per_saving=steps_per_saving,
-                        render=render, iteration_velocity=iteration_velocity, stop_and_go_seconds=stop_and_go_seconds)
+                        render=render, iteration_velocity=iteration_velocity, stop_and_go_seconds=stop_and_go_seconds,
+                        print_env_info=print_env_info, print_agent_info=print_agent_info)
 
-    def inference(self, total_steps: int = int(1e6), render: bool = False):
-        return self.__run(total_steps=total_steps, render=render)
+    def inference(self, total_steps: int = int(1e6), render: bool = False, print_env_info: bool = False, print_agent_info: bool = False):
+        return self.__run(total_steps=total_steps, render=render, print_env_info=print_env_info, print_agent_info=print_agent_info)
 
     def predict(self, observation):
         raise NotImplementedError
@@ -133,4 +140,7 @@ class Agent:
         raise NotImplementedError
 
     def save(self):
+        raise NotImplementedError
+
+    def info(self):
         raise NotImplementedError

@@ -35,3 +35,6 @@ class QL(Agent):
 
     def save(self):
         np.savetxt(self.saving_path, self.q, delimiter=",")
+
+    def info(self):
+        return {'epsilon': self.epsilon}
