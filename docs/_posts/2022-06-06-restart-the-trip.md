@@ -15,3 +15,4 @@ As for Gazebo, the task has been simple since it has not been necessary to revie
 As far as ROS is concerned, I reviewed how it works underneath and the most common commands although I have stayed at the point of seeing how to implement services and messages. Also, after the latter, I would like to see how exactly the integration with Python (rospy) works, in order to properly refactor my code.
 
 During this research process I have realized that the implementation of the gym_gazebo module is probably not the right one as I believe, with what I have seen so far, that the best option would be to create a ROS package containing the necessary node/s to run the simulation environment and, later on, develop a gym environment that communicates with this/these ROS node/s. I would like to do this since, as I am going to resume this work for next season, I think I have enough time to deliver quality work.
+
