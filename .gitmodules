@@ -1,3 +1,0 @@
-[submodule "JdeRobot/CustomRobots"]
-	path = gym_gazebo/gym_gazebo/launchfiles
-	url = https://github.com/JdeRobot/CustomRobots.git

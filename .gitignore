@@ -1,10 +1,1 @@
-*__pycache__
-*env
-*venv
-.vscode
-.python-version
-*gym_gazebo.egg-info
-*scratch*
-*logs
-scartch2.py
-*.csv
+catkin_ws
